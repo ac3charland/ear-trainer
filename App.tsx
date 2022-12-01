@@ -1,10 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+import play from './utils/audio-engine/player';
+import {C4} from './utils/notes';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+      <Button
+        testID="play-button"
+        title="Play"
+        onPress={() => play(C4)}
+      />
       <StatusBar style="auto" />
     </View>
   );
