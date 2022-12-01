@@ -1,11 +1,16 @@
 import Note from "../notes";
+import { Audio } from "expo-av";
 
-export default function play(notes: Note | Note[]) {
+export default async function play(notes: Note | Note[]) {
   if (Array.isArray(notes)) {
     for (const note in notes) {
       console.log(note);
     }
   } else {
-    console.log(notes);
+    const { sound } = await Audio.Sound.createAsync(
+      require("../../assets/notes/C4.mp3")
+    );
+    await sound.playAsync();
+    console.log("Played C4");
   }
 }
