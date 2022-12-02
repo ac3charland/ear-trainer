@@ -1,11 +1,13 @@
-import React from "react";
-import renderer from "react-test-renderer";
+import React from 'react';
+import { Button } from 'react-native';
+import renderer from 'react-test-renderer';
 
-import App from "./App";
+import App from './App';
 
-describe("<App />", () => {
-  it("has 1 child", () => {
-    const tree = renderer.create(<App />).toJSON();
-    expect(tree.children.length).toBe(2);
+describe('<App />', () => {
+  it('has a button', () => {
+    const testRenderer = renderer.create(<App />);
+    const testInstance = testRenderer.root;
+    expect(testInstance.findAllByType(Button).length).toBe(1);
   });
 });

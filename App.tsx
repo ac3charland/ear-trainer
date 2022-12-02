@@ -1,9 +1,11 @@
-import { Audio } from "expo-av";
-import { StatusBar } from "expo-status-bar";
-import { useEffect } from "react";
-import { StyleSheet, View, Button } from "react-native";
-import play from "./utils/audio-engine/player";
-import { C4 } from "./utils/notes";
+import React from 'react';
+import { Audio } from 'expo-av';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
+import { StyleSheet, View, Button } from 'react-native';
+import play from './utils/audio-engine/player';
+import { Notes } from './utils/notes';
+import { generateRandomSequence } from './utils/utils';
 
 export default function App() {
   useEffect(() => {
@@ -12,10 +14,16 @@ export default function App() {
     });
   }, []);
 
+  const onPlay = () => {
+    const sequence = generateRandomSequence(3, Notes.length);
+    const notes = sequence.map((i) => Notes[i]);
+    play(notes);
+  };
+
   return (
     <View style={styles.container}>
-      <Button testID="play-button" title="Play" onPress={() => play(C4)} />
-      <StatusBar style="auto" />
+      <Button testID='play-button' title='Play' onPress={onPlay} />
+      <StatusBar style='auto' />
     </View>
   );
 }
@@ -23,8 +31,8 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
