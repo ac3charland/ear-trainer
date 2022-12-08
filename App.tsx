@@ -6,6 +6,7 @@ import { StyleSheet, View, Button } from 'react-native';
 import play from './utils/audio-engine/player';
 import { Notes } from './utils/notes';
 import { generateRandomSequence } from './utils/utils';
+import listen from './utils/audio-engine/listener';
 
 export default function App() {
   useEffect(() => {
@@ -19,6 +20,8 @@ export default function App() {
     const notes = sequence.map((i) => Notes[i]);
     play(notes);
   };
+
+  listen();
 
   return (
     <View style={styles.container}>
