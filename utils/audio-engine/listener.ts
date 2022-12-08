@@ -1,3 +1,4 @@
+/* eslint-disable */
 import Recording from 'react-native-recording';
 import PitchFinder from 'pitchfinder';
 
@@ -23,7 +24,7 @@ export default function listen() {
   });
 
   // ! Usage throws error
-//   console.log({ Recording });
+  //   console.log({ Recording });
 
   //   Recording.init({
   //     sampleRate: 22050,
