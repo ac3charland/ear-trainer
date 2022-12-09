@@ -10,7 +10,9 @@
     "jest": "jest",
     "lint": "eslint --ext .tsx --ext .ts .",
     "lint:fix": "eslint --ext .tsx --ext .ts --fix .",
-    "test": "npm run lint && npm run jest"
+    "test": "npm run lint && npm run jest",
+    "devBuild": "eas build --profile development --platform all",
+    "devSBuild": "eas build --profile development-simulator --platform ios"
   },
   "dependencies": {
     "@types/react": "~18.0.24",
