@@ -23,8 +23,7 @@ export default function listen() {
     sampleRate: 22050,
   });
 
-  // ! Usage throws error
-  //   console.log({ Recording });
+  console.log({ Recording });
 
   //   Recording.init({
   //     sampleRate: 22050,
