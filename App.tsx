@@ -1,12 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import 'expo-dev-client';
 import { Audio } from 'expo-av';
 import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 import play from './utils/audio-engine/player';
+import listen from './utils/audio-engine/listener';
 import { Notes } from './utils/notes';
 import { generateRandomSequence } from './utils/utils';
-import listen from './utils/audio-engine/listener';
 
 export default function App() {
   useEffect(() => {
