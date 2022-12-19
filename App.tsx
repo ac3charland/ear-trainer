@@ -6,6 +6,8 @@ import { StyleSheet, View, Button } from 'react-native';
 import play from './utils/audio-engine/player';
 import { Notes } from './utils/notes';
 import { generateRandomSequence } from './utils/utils';
+import listen from './utils/audio-engine/listener';
+import RecordButton from './components/RecordButton';
 
 export default function App() {
   useEffect(() => {
@@ -22,7 +24,8 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Button testID='play-button' title='Play' onPress={onPlay} />
+      {/* <Button testID='play-button' title='Play' onPress={onPlay} /> */}
+      <RecordButton />
       <StatusBar style='auto' />
     </View>
   );
