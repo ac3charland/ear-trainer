@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, View, Text } from 'react-native';
 import { Audio } from 'expo-av';
+import Pitchfinder from 'pitchfinder';
 
 export default function RecordButton() {
   const AudioRecorder = useRef(new Audio.Recording());
@@ -10,6 +11,22 @@ export default function RecordButton() {
   const [AudioPermission, SetAudioPermission] = useState(false);
   const [IsRecording, SetIsRecording] = useState(false);
   const [IsPLaying, SetIsPLaying] = useState(false);
+  const [currentPitch, setCurrentPitch] = useState('');
+
+  const noteStrings = [
+    'C',
+    'C♯',
+    'D',
+    'D♯',
+    'E',
+    'F',
+    'F♯',
+    'G',
+    'G♯',
+    'A',
+    'A♯',
+    'B',
+  ];
 
   useEffect(() => {
     console.log('Requesting permission...');
@@ -76,6 +93,29 @@ export default function RecordButton() {
       // Play if song is loaded successfully
       if (playerStatus.isLoaded) {
         if (playerStatus.isPlaying === false) {
+          const detectPitch = Pitchfinder.YIN();
+          AudioPlayer.current.setOnAudioSampleReceived((sample) => {
+            const { channels, timestamp } = sample;
+            const float32Array = new Float32Array(channels[0].frames);
+            const frequency = detectPitch(float32Array);
+            const note = 12 * (Math.log(frequency / 440) / Math.log(2));
+            const noteIndex = Math.round(note) + 69;
+            const noteName = noteStrings[noteIndex % 12];
+            const octave = Math.floor(noteIndex / 12) - 1;
+            const noteString = `${noteName}${octave}`;
+            if (frequency && frequency < 17000) {
+              if (noteString !== currentPitch) {
+                setCurrentPitch(noteString);
+              }
+              console.log({
+                note: noteString,
+                frequency,
+                timestamp,
+              });
+            } else {
+              setCurrentPitch('');
+            }
+          });
           AudioPlayer.current.playAsync();
           SetIsPLaying(true);
         }
@@ -108,7 +148,7 @@ export default function RecordButton() {
         color={IsPLaying ? 'red' : 'orange'}
         onPress={IsPLaying ? StopPlaying : PlayRecordedAudio}
       />
-      <Text>{recordedURI}</Text>
+      <Text style={{ fontSize: 24 }}>Pitch: {currentPitch}</Text>
     </View>
   );
 }
